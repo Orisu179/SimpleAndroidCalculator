@@ -1,6 +1,7 @@
 package com.example.calculator
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,9 +57,9 @@ fun CalculatorLayout() {
 fun OperationRow(buttonSize: Dp, buttonPadding: Dp, verticalPadding: Dp) {
     val calIcons = arrayOf(
         "/",
-        Icons.Default.Clear,
+        "*",
         "-",
-        Icons.Default.Add,
+        "+",
         "=",
     )
     Column (
@@ -70,7 +72,9 @@ fun OperationRow(buttonSize: Dp, buttonPadding: Dp, verticalPadding: Dp) {
 @Composable
 fun OperationButtons(symbol: Any, buttonSize: Dp, buttonPadding: Dp, onClick: () -> Unit){
     Button(
-        modifier = Modifier.size(buttonSize).padding(buttonPadding),
+        modifier = Modifier
+            .size(buttonSize)
+            .padding(buttonPadding),
         onClick = onClick
     ) {
         when(symbol) {
@@ -81,13 +85,36 @@ fun OperationButtons(symbol: Any, buttonSize: Dp, buttonPadding: Dp, onClick: ()
 }
 
 @Composable
-fun FieldInput(textValue: String){
+fun FieldInput(textValue: String, result: String = ""){
     Card(
         modifier = Modifier.size(height = 300.dp, width = 400.dp)
     ) {
-        TextField(
-            value = textValue, onValueChange = {}
-        )
+        Column (
+            horizontalAlignment = Alignment.End,
+            modifier = Modifier.fillMaxWidth(),
+        ){
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.padding(end = 15.dp, top = 5.dp)
+            ) {
+
+            }
+        }
+        Box (
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomEnd
+        ){
+            Text(
+                text = "test",
+                fontSize = 60.sp,
+                modifier = Modifier.padding(bottom = 50.dp, end = 15.dp),
+            )
+            Text(
+                text = result,
+                fontSize = 30.sp,
+                modifier = Modifier.padding(bottom = 15.dp, end = 15.dp, top = 15.dp)
+            )
+        }
     }
 }
 

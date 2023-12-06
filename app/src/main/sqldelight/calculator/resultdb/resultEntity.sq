@@ -1,0 +1,18 @@
+CREATE TABLE resultEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    inputString TEXT NOT NULL,
+    result TEXT NOT NULL
+);
+
+getAllResult:
+SELECT inputString, result
+FROM resultEntity;
+
+insertResult:
+INSERT OR REPLACE
+INTO resultEntity
+VALUES(?, ?, ?);
+
+deleteResult:
+DELETE FROM resultEntity
+WHERE id = :id;
