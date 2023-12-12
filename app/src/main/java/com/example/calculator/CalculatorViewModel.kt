@@ -1,19 +1,43 @@
 package com.example.calculator
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.calculator.Evaluator.Evaluator
 
 class CalculatorViewModel: ViewModel() {
-//    var result = mutableStateOf(0.0)
-//        private set
     private val _result = MutableLiveData(0.0)
+    private val _input = mutableStateOf("")
+    private val evaluate = Evaluator()
     val result: LiveData<Double>
         get() = _result
 
-    fun updateResult() {
+    val input: MutableState<String>
+        get() = _input
 
+
+    fun updateResult() {
+        _result.value = evaluate.getResult(_input.value)
+    }
+
+    //used for number buttons
+    fun concatNumber(number: String) {
+        _input.value = input.value + number
+    }
+
+    //used for operation buttons
+    fun concatOperation(operator: String) {
+        _input.value = input.value + " " + operator + " "
+    }
+
+    fun clearInput() {
+        _input.value = ""
+    }
+
+    fun deleteSingleInput() {
+        _input.value = input.value.dropLast(1)
     }
 
     fun returnResult(): String {
@@ -22,6 +46,3 @@ class CalculatorViewModel: ViewModel() {
         return result.value.toString()
     }
 }
-
-//This is what is saved in the local database
-data class Calculations(val input: String, val result: Double)

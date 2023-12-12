@@ -16,3 +16,6 @@ VALUES(?, ?, ?);
 deleteResult:
 DELETE FROM resultEntity
 WHERE id = :id;
+
+deleteAll:
+DELETE FROM resultEntity;
